@@ -38,6 +38,10 @@ variable "sso_permissionsets_configmap" {
     managed_policy_arns = list(string)
     inline_policy       = string
   }))
+  validation {
+    condition     = length(each.key) <= 31
+    error_message = "The length of the key in sso_permissionsets_configmap must be in the range (1 - 31) characters."
+  }
 }
 
 variable "sso_account_configmap" {
