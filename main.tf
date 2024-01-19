@@ -56,6 +56,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "managed_policy_attachment" {
   instance_arn       = tolist(var.ssoadmin_instance_arns)[0]
   managed_policy_arn = each.value.managed_policy_arn
   permission_set_arn = aws_ssoadmin_permission_set.permissionset[each.value.permission_set_name].arn
+  depends_on         = [aws_ssoadmin_account_assignment.sso_account_user, aws_ssoadmin_account_assignment.sso_account_group, ]
 }
 
 resource "aws_ssoadmin_account_assignment" "sso_account_user" {
