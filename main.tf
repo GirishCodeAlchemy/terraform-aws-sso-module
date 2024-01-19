@@ -30,7 +30,7 @@ resource "aws_identitystore_group" "aws_group" {
   description       = each.value.description
 }
 
-resource "aws_identitystore_group_membership" "example" {
+resource "aws_identitystore_group_membership" "aws_membership" {
   for_each          = { for identity in local.flattened_groups : "${identity.group_key}-${identity.user_key}" => identity }
   identity_store_id = element(var.identity_store_ids, 0)
   group_id          = aws_identitystore_group.aws_group[each.value.group_key].group_id

@@ -26,7 +26,7 @@ output "aws_identitystore_group" {
 
 output "aws_identitystore_group_membership" {
   description = "The AWS Identity Store Group Membership details"
-  value       = aws_identitystore_group_membership.example
+  value       = aws_identitystore_group_membership.aws_membership
 }
 
 output "aws_ssoadmin_permission_set" {
