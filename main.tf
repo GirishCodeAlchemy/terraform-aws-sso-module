@@ -33,8 +33,8 @@ resource "aws_identitystore_group" "aws_group" {
 resource "aws_identitystore_group_membership" "example" {
   for_each          = { for i in local.flattened_groups : "${i.group_key}-${i.user_key}" => i }
   identity_store_id = element(var.identity_store_ids, 0)
-  group_id          = aws_identitystore_group.aws_group[each.value.group_key].id
-  member_id         = aws_identitystore_user.aws_user[each.value.user_key].id
+  group_id          = aws_identitystore_group.aws_group[each.value.group_key].group_id
+  member_id         = aws_identitystore_user.aws_user[each.value.user_key].user_id
 }
 
 resource "aws_ssoadmin_permission_set" "permissionset" {
