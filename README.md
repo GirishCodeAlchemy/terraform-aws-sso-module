@@ -104,9 +104,9 @@ sso_user_configmap = {
 Configuration for SSO Groups and Members.
 
 > [!IMPORTANT]
-> v1: Currently the groups and memberrs will be created only if those users are created using sso_user_configmap.
-
-> For support in adding `existing users`, which were manually created on the AWS console, to map them to the existing `Group` and `Member`, please await the release of version 2 of this module.
+> v1: Currently, groups and members will only be created if those users are created using the `sso_user_configmap`.\
+> \
+> For assistance in adding `existing users`, who were manually created on the AWS console, and mapping them to the existing `Group` and `Member`, please await the release of version 2 of this module.
 
 ```hcl
 variable "sso_groups_configmap" {
@@ -208,6 +208,8 @@ Configuration for SSO Account.
 > - Mapping old users, groups, and permission sets.
 > - Mapping new users, groups, and permission sets created using this module.
 > - Migrating a combination of both old and new SSO configurations.
+> - Supporting SSO creation for multiple account creations.
+> - Supporting the creation of multiple users, groups, and permission sets.
 
 ```hcl
 variable "sso_account_configmap" {
