@@ -65,7 +65,7 @@ resource "aws_ssoadmin_account_assignment" "sso_account_user" {
   instance_arn       = tolist(var.ssoadmin_instance_arns)[0]
   target_id          = each.value.account
   target_type        = "AWS_ACCOUNT"
-  principal_id       = element(split("/", data.aws_identitystore_user.aws_user["${each.value.account}.${each.value.username}"].id), length(split("/", data.aws_identitystore_user.aws_user["${each.value.account}.${each.value.username}"].id)) - 1)
+  principal_id       = data.aws_identitystore_user.aws_user["${each.value.account}.${each.value.username}"].user_id
   principal_type     = "USER"
   permission_set_arn = data.aws_ssoadmin_permission_set.aws_user_permissionset[each.key].arn
 }
@@ -73,11 +73,10 @@ resource "aws_ssoadmin_account_assignment" "sso_account_user" {
 resource "aws_ssoadmin_account_assignment" "sso_account_group" {
   for_each = { for config in local.flatten_group_configurations : "${config.account}.${config.groupname}.${config.permissionset}" => config }
 
-  instance_arn = tolist(var.ssoadmin_instance_arns)[0]
-  target_id    = each.value.account
-  target_type  = "AWS_ACCOUNT"
-
-  principal_id       = element(split("/", data.aws_identitystore_group.aws_group["${each.value.account}.${each.value.groupname}"].id), length(split("/", data.aws_identitystore_group.aws_group["${each.value.account}.${each.value.groupname}"].id)) - 1)
+  instance_arn       = tolist(var.ssoadmin_instance_arns)[0]
+  target_id          = each.value.account
+  target_type        = "AWS_ACCOUNT"
+  principal_id       = data.aws_identitystore_group.aws_group["${each.value.account}.${each.value.groupname}"].group_id
   principal_type     = "GROUP"
   permission_set_arn = data.aws_ssoadmin_permission_set.aws_group_permissionset[each.key].arn
 
