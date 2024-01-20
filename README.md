@@ -142,15 +142,30 @@ sso_groups_configmap = {
 Configuration for AWS SSO Permission Sets with Managed Policy and Inline Policy
 
 > [!IMPORTANT]
-> list of managed policies can be attached to the permission set
+> list of managed policies can be attached to the permission set.
+
+> [!CAUTION]
+> Please note the following validation conditions:
+>
+> - The Permissionset Name key must be less than 31 characters in sso_permissionsets_configmap.
+> - At least one of managed_policy_arns or inline_policy must be set in sso_permissionsets_configmap
 
 ```hcl
 variable "sso_permissionsets_configmap" {
   type = map(object({
+    name                = string
     description         = string
     managed_policy_arns = list(string)
     inline_policy       = string
   }))
+  validation {
+    condition     = length(values(var.sso_permissionsets_configmap)[*].name) <= 31
+    error_message = "The Permissionset Name key must be less than 31 characters in sso_permissionsets_configmap."
+  }
+  validation {
+    condition     = alltrue([for v in values(var.sso_permissionsets_configmap) : length(v.managed_policy_arns) > 0 || v.inline_policy != ""])
+    error_message = "At least one of managed_policy_arns or inline_policy must be set in sso_permissionsets_configmap."
+  }
 }
 ```
 
@@ -159,6 +174,7 @@ variable "sso_permissionsets_configmap" {
 ```hcl
 sso_permissionsets_configmap = {
   "SSM-Admin-permissionset" = {
+    name                = "SSM-Admin-permissionset"
     description         = "Sample Admin permissionset"
     managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess", "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"]
     inline_policy       = <<-EOF
@@ -177,6 +193,7 @@ sso_permissionsets_configmap = {
     EOF
   },
   "SSM-testing-permissionset" = {
+    name                = "SSM-testing-permissionset"
     description         = "Sample testing permissionset"
     managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess"]
     inline_policy       = <<-EOF
