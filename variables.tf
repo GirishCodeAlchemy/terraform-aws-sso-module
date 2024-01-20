@@ -45,7 +45,7 @@ variable "sso_permissionsets_configmap" {
   }
   validation {
     condition     = alltrue([for v in values(var.sso_permissionsets_configmap) : length(v.managed_policy_arns) > 0 || v.inline_policy != ""])
-    error_message = "At least one of managed_policy_arns or inline_policy must be set in sso_permissionsets_configmap."
+    error_message = "Both managed_policy_arns and inline_policy cannot be empty in sso_permissionsets_configmap."
   }
 }
 
