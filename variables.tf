@@ -34,13 +34,14 @@ variable "sso_groups_configmap" {
 
 variable "sso_permissionsets_configmap" {
   type = map(object({
+    name                = string
     description         = string
     managed_policy_arns = list(string)
     inline_policy       = string
   }))
   validation {
-    condition     = length(var.sso_permissionsets_configmap) <= 31
-    error_message = "The length of the key in sso_permissionsets_configmap must be in the range (1 - 31) characters."
+    condition     = length(var.sso_permissionsets_configmap[*].name) <= 31
+    error_message = "The Permissionset Name key must be less than 31 characters."
   }
 }
 

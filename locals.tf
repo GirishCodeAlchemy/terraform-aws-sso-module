@@ -11,7 +11,7 @@ locals {
   flattened_managed_policy_attachments = flatten([
     for k, v in var.sso_permissionsets_configmap : [
       for managed_policy_arn in v.managed_policy_arns : {
-        permission_set_name = k
+        permission_set_name = v.name
         managed_policy_arn  = managed_policy_arn
       }
     ]

@@ -39,7 +39,7 @@ resource "aws_identitystore_group_membership" "aws_membership" {
 
 resource "aws_ssoadmin_permission_set" "permissionset" {
   for_each     = var.sso_permissionsets_configmap
-  name         = each.key
+  name         = each.value.name
   description  = each.value.description
   instance_arn = tolist(var.ssoadmin_instance_arns)[0]
 }
@@ -48,7 +48,7 @@ resource "aws_ssoadmin_permission_set_inline_policy" "inline_policy" {
   for_each           = var.sso_permissionsets_configmap
   inline_policy      = each.value.inline_policy
   instance_arn       = tolist(var.ssoadmin_instance_arns)[0]
-  permission_set_arn = aws_ssoadmin_permission_set.permissionset[each.key].arn
+  permission_set_arn = aws_ssoadmin_permission_set.permissionset[each.value.name].arn
 }
 
 resource "aws_ssoadmin_managed_policy_attachment" "managed_policy_attachment" {

@@ -54,6 +54,7 @@ variable "sso_permissionsets_configmap" {
   }))
   default = {
     "SSM-Admin-permissionset" = {
+      name                = "SSM-Admin-permissionset"
       description         = "Sample Admin permissionset"
       managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess", "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"]
       inline_policy       = <<-EOF
@@ -72,6 +73,7 @@ variable "sso_permissionsets_configmap" {
             EOF
     },
     "SSM-testing-permissionset" = {
+      name                = "SSM-testing-permissionset"
       description         = "Sample testing permissionset"
       managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess"]
       inline_policy       = <<-EOF
@@ -91,11 +93,13 @@ variable "sso_permissionsets_configmap" {
             EOF
     },
     "SSM-Only-Managed-permissionset" = {
+      name                = "SSM-Only-Managed-permissionset"
       description         = "Sample testing permissionset"
       managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess"]
       inline_policy       = ""
     },
-    "SSM-Only-Inlinepolicy-permissionset" = {
+    "SSM-Only-Inline-permissionset" = {
+      name                = "SSM-Only-Inline-permissionset"
       description         = "Sample testing permissionset"
       managed_policy_arns = []
       inline_policy       = <<-EOF
@@ -135,7 +139,7 @@ variable "sso_account_configmap" {
         girishcodealchemy = { username = "girishcodealchemy", permissionset = ["SSM-testing-permissionset"] }
       }
       groups = {
-        L1devopsgroup = { groupname = "L1-devops-group", permissionset = ["SSM-testing-permissionset", "SSM-Admin-permissionset", "SSM-Only-Managed-permissionset", "SSM-Only-Inlinepolicy-permissionset"] }
+        L1devopsgroup = { groupname = "L1-devops-group", permissionset = ["SSM-testing-permissionset", "SSM-Admin-permissionset", "SSM-Only-Managed-permissionset", "SSM-Only-Inline-permissionset"] }
       }
     },
     "123xxxxx2" = {
@@ -144,7 +148,7 @@ variable "sso_account_configmap" {
       }
       groups = {
         L1devopsgroup = { groupname = "L1-devops-group", permissionset = ["SSM-testing-permissionset"] },
-        L1AdminGroup  = { groupname = "L1-Admin-group", permissionset = ["SSM-testing-permissionset", "SSM-Admin-permissionset", "SSM-Only-Managed-permissionset", "SSM-Only-Inlinepolicy-permissionset"] }
+        L1AdminGroup  = { groupname = "L1-Admin-group", permissionset = ["SSM-testing-permissionset", "SSM-Admin-permissionset", "SSM-Only-Managed-permissionset", "SSM-Only-Inline-permissionset"] }
       }
     }
   }
