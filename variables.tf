@@ -40,8 +40,8 @@ variable "sso_permissionsets_configmap" {
     inline_policy       = string
   }))
   validation {
-    condition     = length(var.sso_permissionsets_configmap[*].name) <= 31
-    error_message = "The Permissionset Name key must be less than 31 characters."
+    condition     = length(values(var.sso_permissionsets_configmap)[*].name) <= 31
+    error_message = "The Permissionset Name key must be less than 31 characters in sso_permissionsets_configmap."
   }
 }
 
