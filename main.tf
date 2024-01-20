@@ -46,7 +46,7 @@ resource "aws_ssoadmin_permission_set" "permissionset" {
 
 resource "aws_ssoadmin_permission_set_inline_policy" "inline_policy" {
   for_each           = var.sso_permissionsets_configmap
-  inline_policy      = each.value.inline_policy != "" ? each.value.inline_policy : null
+  inline_policy      = each.value.inline_policy != "" ? each.value.inline_policy : jsonencode({})
   instance_arn       = tolist(var.ssoadmin_instance_arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permissionset[each.value.name].arn
 }
