@@ -43,6 +43,10 @@ variable "sso_permissionsets_configmap" {
     condition     = length(values(var.sso_permissionsets_configmap)[*].name) <= 31
     error_message = "The Permissionset Name key must be less than 31 characters in sso_permissionsets_configmap."
   }
+  validation {
+    condition     = alltrue([for v in values(var.sso_permissionsets_configmap) : length(v.managed_policy_arns) > 0 || v.inline_policy != ""])
+    error_message = "At least one of managed_policy_arns or inline_policy must be set in sso_permissionsets_configmap."
+  }
 }
 
 variable "sso_account_configmap" {
