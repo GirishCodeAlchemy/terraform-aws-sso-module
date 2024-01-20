@@ -1,19 +1,19 @@
 variable "identity_store_ids" {
-  description = "List of Identity Store IDs to search for users and groups."
+  description = "A list of Identity Store IDs for searching users and groups."
   type        = list(string)
   default     = []
 
 }
 
 variable "ssoadmin_instance_arns" {
-  description = "List of Identity Store Instance arns to search for users and groups."
+  description = "A list of Identity Store Instance ARNs for searching users and groups."
   type        = list(string)
   default     = []
 
 }
 
 variable "sso_user_configmap" {
-  description = "This sets the configuration for SSO Users"
+  description = "A map that defines the configuration for each SSO user. Each user is represented by an object with fields for display name, user name, given name, family name, and email."
   type = map(object({
     display_name = string
     user_name    = string
@@ -24,7 +24,7 @@ variable "sso_user_configmap" {
 }
 
 variable "sso_groups_configmap" {
-  description = "This sets the configuration for SSO Users"
+  description = "A map that defines the configuration for each SSO group. Each group is represented by an object with fields for display name, description, and a list of associated users."
   type = map(object({
     display_name = string
     description  = string
@@ -33,6 +33,7 @@ variable "sso_groups_configmap" {
 }
 
 variable "sso_permissionsets_configmap" {
+  description = "A map defining the configuration for each SSO permission set with fields for name, description, managed policy ARNs, and inline policy. Includes validations for the length of the Permissionset Name key and the presence of either managed_policy_arns or inline_policy."
   type = map(object({
     name                = string
     description         = string
@@ -50,7 +51,7 @@ variable "sso_permissionsets_configmap" {
 }
 
 variable "sso_account_configmap" {
-  description = "This sets the configuration for SSO account"
+  description = "A map that defines the configuration for each SSO account. Each account is represented by an object with fields for users and groups, each of which is a map of objects with fields for username/groupname and a list of associated permission sets."
   type = map(object({
     users = map(object({
       username      = string

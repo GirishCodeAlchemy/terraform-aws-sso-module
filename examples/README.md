@@ -12,7 +12,8 @@ data "aws_ssoadmin_instances" "ssoadmin" {
 }
 
 module "sso" {
-  source                       = "git@github.com:GirishCodeAlchemy/terraform-sso-module.git"
+  source  = "GirishCodeAlchemy/sso-module/aws"
+  version = "1.0.0"
 
   identity_store_ids           = data.aws_ssoadmin_instances.ssoadmin.identity_store_ids
   ssoadmin_instance_arns       = data.aws_ssoadmin_instances.ssoadmin.arns
