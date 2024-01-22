@@ -4,6 +4,8 @@ This Terraform module is designed to provision and configure AWS SSO (Single Sig
 
 > Empower your AWS environment with the flexibility to manage multiple hierarchies seamlessly. Our Terraform AWS SSO Module simplifies the orchestration of accounts, users, groups, and permission sets, ensuring you have the agility to handle diverse configurations effortlessly
 
+![](../flow-diagram.gif)
+
 ## Usage
 
 ```hcl
