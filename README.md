@@ -1,4 +1,4 @@
-# Terraform AWS SSO Module
+# [Terraform AWS SSO Module](https://registry.terraform.io/modules/GirishCodeAlchemy/sso-module/aws/latest)
 
 This Terraform module is designed to provision and configure AWS SSO (Single Sign-On) resources, including identity store, users, groups, and permissions.
 
